@@ -1,0 +1,353 @@
+/* ====== Variables y estilos base ====== */
+:root {
+  --fondo: #f3f5f9;
+  --superficie: #ffffff;
+  --texto: #172033;
+  --texto-suave: #64748b;
+  --borde: #dbe2ec;
+  --verde: #15803d;
+  --verde-suave: #e7f6ec;
+  --rojo: #dc2626;
+  --rojo-suave: #fdecec;
+  --acento: #4338ca;
+  --acento-oscuro: #3730a3;
+  --radio: 16px;
+  --sombra: 0 10px 30px rgba(23, 32, 51, 0.07);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--fondo);
+  color: var(--texto);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.contenedor {
+  width: 100%;
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 32px 16px 64px;
+}
+
+/* ====== Cabecera ====== */
+.cabecera {
+  margin-bottom: 24px;
+}
+
+.cabecera h1 {
+  margin: 0;
+  font-size: 2rem;
+  letter-spacing: -0.03em;
+}
+
+.cabecera p {
+  margin: 4px 0 0;
+  color: var(--texto-suave);
+}
+
+/* ====== Tarjetas de totales ====== */
+.resumen {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.tarjeta-resumen {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: var(--superficie);
+  border-radius: var(--radio);
+  box-shadow: var(--sombra);
+}
+
+.icono {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+}
+
+.icono svg {
+  width: 22px;
+  height: 22px;
+}
+
+.ingresos .icono {
+  background: var(--verde-suave);
+  color: var(--verde);
+}
+
+.egresos .icono {
+  background: var(--rojo-suave);
+  color: var(--rojo);
+}
+
+.etiqueta-resumen {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--texto-suave);
+}
+
+.monto-resumen {
+  margin: 2px 0 0;
+  font-size: clamp(1.05rem, 4.2vw, 1.35rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.ingresos .monto-resumen {
+  color: var(--verde);
+}
+
+.egresos .monto-resumen {
+  color: var(--rojo);
+}
+
+/* ====== Tarjetas de contenido ====== */
+.tarjeta {
+  padding: 20px;
+  background: var(--superficie);
+  border-radius: var(--radio);
+  box-shadow: var(--sombra);
+}
+
+.tarjeta + .tarjeta {
+  margin-top: 16px;
+}
+
+.tarjeta h2 {
+  margin: 0 0 16px;
+  font-size: 1.05rem;
+}
+
+/* ====== Formulario ====== */
+.tipo {
+  margin: 0 0 14px;
+  padding: 0;
+  border: 0;
+}
+
+.tipo legend {
+  margin-bottom: 6px;
+  padding: 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.opciones-tipo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.opcion {
+  position: relative;
+}
+
+.opcion input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.opcion span {
+  display: block;
+  padding: 10px;
+  text-align: center;
+  font-weight: 600;
+  color: var(--texto-suave);
+  background: var(--superficie);
+  border: 1.5px solid var(--borde);
+  border-radius: 10px;
+  transition: background-color 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.opcion input:focus-visible + span {
+  outline: 2px solid var(--acento);
+  outline-offset: 2px;
+}
+
+.opcion.ingreso input:checked + span {
+  color: var(--verde);
+  background: var(--verde-suave);
+  border-color: var(--verde);
+}
+
+.opcion.egreso input:checked + span {
+  color: var(--rojo);
+  background: var(--rojo-suave);
+  border-color: var(--rojo);
+}
+
+.campo {
+  margin-bottom: 14px;
+}
+
+.campo label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="date"] {
+  width: 100%;
+  padding: 11px 12px;
+  font: inherit;
+  color: var(--texto);
+  background: var(--superficie);
+  border: 1.5px solid var(--borde);
+  border-radius: 10px;
+}
+
+input[type="text"]:focus-visible,
+input[type="number"]:focus-visible,
+input[type="date"]:focus-visible {
+  outline: none;
+  border-color: var(--acento);
+  box-shadow: 0 0 0 3px rgba(67, 56, 202, 0.15);
+}
+
+.error {
+  margin: 0 0 12px;
+  padding: 10px 12px;
+  font-size: 0.875rem;
+  color: var(--rojo);
+  background: var(--rojo-suave);
+  border-radius: 8px;
+}
+
+button[type="submit"] {
+  width: 100%;
+  padding: 12px 16px;
+  font: inherit;
+  font-weight: 600;
+  color: #ffffff;
+  background: var(--acento);
+  border: 0;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.15s, transform 0.05s;
+}
+
+button[type="submit"]:hover {
+  background: var(--acento-oscuro);
+}
+
+button[type="submit"]:active {
+  transform: scale(0.995);
+}
+
+button[type="submit"]:focus-visible {
+  outline: 2px solid var(--acento);
+  outline-offset: 3px;
+}
+
+/* ====== Lista de movimientos ====== */
+.lista {
+  --alto-item: 60px;
+  --separacion: 8px;
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--separacion);
+  /* Caben 5 movimientos exactos; si hay más, la lista hace scroll. */
+  max-height: calc(5 * var(--alto-item) + 4 * var(--separacion));
+  margin: 0;
+  padding: 0 4px 0 0;
+  overflow-y: auto;
+  list-style: none;
+  scrollbar-width: thin;
+}
+
+.lista::-webkit-scrollbar {
+  width: 8px;
+}
+
+.lista::-webkit-scrollbar-thumb {
+  background: var(--borde);
+  border-radius: 999px;
+}
+
+.movimiento {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  height: var(--alto-item);
+  padding: 0 14px;
+  background: #f8fafc;
+  border-radius: 12px;
+}
+
+.datos {
+  flex: 1;
+  min-width: 0;
+}
+
+.concepto {
+  margin: 0;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fecha {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--texto-suave);
+}
+
+.monto {
+  margin: 0;
+  font-weight: 700;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.es-ingreso .monto {
+  color: var(--verde);
+}
+
+.es-egreso .monto {
+  color: var(--rojo);
+}
+
+.vacio {
+  margin: 0;
+  padding: 24px 0;
+  text-align: center;
+  color: var(--texto-suave);
+}
+
+/* ====== Ajustes para pantallas muy estrechas ====== */
+@media (max-width: 380px) {
+  .resumen {
+    grid-template-columns: 1fr;
+  }
+}
