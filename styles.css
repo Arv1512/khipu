@@ -1,19 +1,51 @@
 /* ====== Variables y estilos base ====== */
 :root {
+  color-scheme: light;
   --fondo: #f3f5f9;
   --superficie: #ffffff;
+  --superficie-suave: #f8fafc;
   --texto: #172033;
   --texto-suave: #64748b;
   --borde: #dbe2ec;
+  --borde-fuerte: #c7d0dd;
   --verde: #15803d;
   --verde-suave: #e7f6ec;
   --rojo: #dc2626;
   --rojo-suave: #fdecec;
+  --rojo-boton: #dc2626;
+  --rojo-boton-hover: #b91c1c;
   --neutro-suave: #eef1f5;
   --acento: #4338ca;
   --acento-oscuro: #3730a3;
+  --foco: rgba(67, 56, 202, 0.15);
   --radio: 16px;
   --sombra: 0 10px 30px rgba(23, 32, 51, 0.07);
+  --sombra-fuerte: 0 20px 50px rgba(23, 32, 51, 0.22);
+  --fondo-modal: rgba(23, 32, 51, 0.45);
+}
+
+[data-tema="oscuro"] {
+  color-scheme: dark;
+  --fondo: #0f172a;
+  --superficie: #1e293b;
+  --superficie-suave: #172033;
+  --texto: #e2e8f0;
+  --texto-suave: #94a3b8;
+  --borde: #334155;
+  --borde-fuerte: #475569;
+  --verde: #4ade80;
+  --verde-suave: rgba(34, 197, 94, 0.16);
+  --rojo: #f87171;
+  --rojo-suave: rgba(248, 113, 113, 0.16);
+  --rojo-boton: #dc2626;
+  --rojo-boton-hover: #b91c1c;
+  --neutro-suave: #293548;
+  --acento: #4f46e5;
+  --acento-oscuro: #4338ca;
+  --foco: rgba(129, 140, 248, 0.3);
+  --sombra: 0 10px 30px rgba(0, 0, 0, 0.35);
+  --sombra-fuerte: 0 20px 50px rgba(0, 0, 0, 0.55);
+  --fondo-modal: rgba(0, 0, 0, 0.65);
 }
 
 * {
@@ -32,6 +64,7 @@ body {
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   font-size: 16px;
   line-height: 1.5;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .contenedor {
@@ -43,6 +76,10 @@ body {
 
 /* ====== Cabecera ====== */
 .cabecera {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
   margin-bottom: 24px;
 }
 
@@ -55,6 +92,68 @@ body {
 .cabecera p {
   margin: 4px 0 0;
   color: var(--texto-suave);
+}
+
+/* ====== Switch de tema ====== */
+.tema-switch {
+  position: relative;
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: space-between;
+  width: 66px;
+  height: 36px;
+  padding: 0 10px;
+  background: var(--superficie);
+  border: 1.5px solid var(--borde);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: border-color 0.15s, background-color 0.2s;
+}
+
+.tema-switch:hover {
+  border-color: var(--borde-fuerte);
+}
+
+.tema-switch:focus-visible {
+  outline: 2px solid var(--acento);
+  outline-offset: 3px;
+}
+
+.tema-pomo {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 27px;
+  height: 27px;
+  background: var(--acento);
+  border-radius: 50%;
+  transition: transform 0.2s ease, background-color 0.2s;
+}
+
+[data-tema="oscuro"] .tema-pomo {
+  transform: translateX(30px);
+}
+
+.tema-icono {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 16px;
+  height: 16px;
+  color: var(--texto-suave);
+  transition: color 0.2s;
+}
+
+.tema-icono svg {
+  width: 16px;
+  height: 16px;
+}
+
+[data-tema="claro"] .tema-icono-sol,
+[data-tema="oscuro"] .tema-icono-luna {
+  color: #ffffff;
 }
 
 /* ====== Tarjetas de totales ====== */
@@ -260,7 +359,7 @@ input[type="number"]:focus-visible,
 input[type="date"]:focus-visible {
   outline: none;
   border-color: var(--acento);
-  box-shadow: 0 0 0 3px rgba(67, 56, 202, 0.15);
+  box-shadow: 0 0 0 3px var(--foco);
 }
 
 .error {
@@ -323,19 +422,19 @@ button[type="submit"]:focus-visible {
 }
 
 .boton-secundario:hover {
-  background: #f8fafc;
-  border-color: #c7d0dd;
+  background: var(--superficie-suave);
+  border-color: var(--borde-fuerte);
 }
 
 .boton-peligro {
   color: #ffffff;
-  background: var(--rojo);
-  border: 1.5px solid var(--rojo);
+  background: var(--rojo-boton);
+  border: 1.5px solid var(--rojo-boton);
 }
 
 .boton-peligro:hover {
-  background: #b91c1c;
-  border-color: #b91c1c;
+  background: var(--rojo-boton-hover);
+  border-color: var(--rojo-boton-hover);
 }
 
 .boton-secundario:focus-visible,
@@ -378,7 +477,7 @@ button[type="submit"]:focus-visible {
   gap: 12px;
   height: var(--alto-item);
   padding: 0 14px;
-  background: #f8fafc;
+  background: var(--superficie-suave);
   border-radius: 12px;
 }
 
@@ -478,7 +577,7 @@ button[type="submit"]:focus-visible {
   background: var(--superficie);
   border: 0;
   border-radius: var(--radio);
-  box-shadow: 0 24px 60px rgba(23, 32, 51, 0.25);
+  box-shadow: var(--sombra-fuerte);
 }
 
 .dialogo[open] {
@@ -493,7 +592,7 @@ button[type="submit"]:focus-visible {
 }
 
 .dialogo::backdrop {
-  background: rgba(23, 32, 51, 0.45);
+  background: var(--fondo-modal);
 }
 
 .dialogo-contenido {
@@ -542,7 +641,7 @@ button[type="submit"]:focus-visible {
   color: var(--texto);
   border: 1px solid var(--borde);
   border-radius: 12px;
-  box-shadow: 0 12px 32px rgba(23, 32, 51, 0.16);
+  box-shadow: var(--sombra-fuerte);
   pointer-events: none;
   opacity: 0;
   visibility: hidden;
@@ -585,5 +684,9 @@ button[type="submit"]:focus-visible {
   .dialogo[open] {
     transition: none;
     animation: none;
+  }
+
+  .tema-pomo {
+    transition: none;
   }
 }

@@ -1,16 +1,50 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-tema="claro">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Khipu — Control de ingresos y egresos</title>
+  <script>
+    // Aplica el tema guardado antes de pintar para evitar un destello claro.
+    try {
+      if (localStorage.getItem("khipu.tema") === "oscuro") {
+        document.documentElement.dataset.tema = "oscuro";
+      }
+    } catch {
+      // Si localStorage no está disponible, se mantiene el tema claro.
+    }
+  </script>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <main class="contenedor">
     <header class="cabecera">
-      <h1>Khipu</h1>
-      <p>Control de ingresos y egresos</p>
+      <div>
+        <h1>Khipu</h1>
+        <p>Control de ingresos y egresos</p>
+      </div>
+
+      <button type="button" class="tema-switch" id="tema-switch" role="switch" aria-checked="false" aria-label="Activar tema oscuro">
+        <span class="tema-pomo" aria-hidden="true"></span>
+        <span class="tema-icono tema-icono-sol" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2"></path>
+            <path d="M12 20v2"></path>
+            <path d="m4.93 4.93 1.41 1.41"></path>
+            <path d="m17.66 17.66 1.41 1.41"></path>
+            <path d="M2 12h2"></path>
+            <path d="M20 12h2"></path>
+            <path d="m6.34 17.66-1.41 1.41"></path>
+            <path d="m19.07 4.93-1.41 1.41"></path>
+          </svg>
+        </span>
+        <span class="tema-icono tema-icono-luna" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"></path>
+          </svg>
+        </span>
+      </button>
     </header>
 
     <section class="resumen" aria-label="Resumen de totales">

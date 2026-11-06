@@ -1,5 +1,6 @@
 // ====== Configuración ======
 const CLAVE_ALMACEN = "khipu.movimientos";
+const CLAVE_TEMA = "khipu.tema";
 const formateadorMontos = new Intl.NumberFormat("es-ES", {
   minimumFractionDigits: 2,
   maximumFractionDigits: 2,
@@ -7,6 +8,7 @@ const formateadorMontos = new Intl.NumberFormat("es-ES", {
 
 // ====== Elementos del HTML ======
 const formulario = document.getElementById("formulario");
+const botonTema = document.getElementById("tema-switch");
 const tituloFormulario = document.getElementById("titulo-formulario");
 const botonGuardar = document.getElementById("boton-guardar");
 const botonCancelarEdicion = document.getElementById("cancelar-edicion");
@@ -103,6 +105,21 @@ function escaparHtml(texto) {
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#39;");
 }
+
+// ====== Tema claro / oscuro ======
+function aplicarTema(tema) {
+  const esOscuro = tema === "oscuro";
+
+  document.documentElement.dataset.tema = esOscuro ? "oscuro" : "claro";
+  botonTema.setAttribute("aria-checked", String(esOscuro));
+  botonTema.setAttribute("aria-label", esOscuro ? "Activar tema claro" : "Activar tema oscuro");
+  localStorage.setItem(CLAVE_TEMA, esOscuro ? "oscuro" : "claro");
+}
+
+botonTema.addEventListener("click", () => {
+  const esOscuro = document.documentElement.dataset.tema === "oscuro";
+  aplicarTema(esOscuro ? "claro" : "oscuro");
+});
 
 // ====== Pintar la interfaz ======
 // mantenerScroll evita que la lista salte al principio al editar o borrar.
@@ -396,6 +413,10 @@ function mostrarToast(texto) {
 
 // ====== Arranque ======
 function iniciar() {
+  // El script del <head> ya aplicó el tema guardado; aquí sincronizamos el botón.
+  const temaInicial = document.documentElement.dataset.tema === "oscuro" ? "oscuro" : "claro";
+  aplicarTema(temaInicial);
+
   const hoy = fechaDeHoy();
   campoFecha.value = hoy;
   campoFecha.max = hoy; // el selector de fecha no permitirá días futuros
